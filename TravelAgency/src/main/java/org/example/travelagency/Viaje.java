@@ -26,12 +26,70 @@ public class Viaje{
     @OneToMany(mappedBy = "viaje",fetch = FetchType.LAZY)
     private ArrayList<Cliente> clientes;
 
+    public Viaje() {
+    }
 
-    
+    public Viaje(String ciudad, String pais, int precio) {
+        this.ciudad = ciudad;
+        this.pais = pais;
+        this.precio = precio;
+        this.clientes = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    @Override
+    public String toString() {
+        return "Viaje{" +
+                "id=" + id +
+                ", ciudad='" + ciudad + '\'' +
+                ", pais='" + pais + '\'' +
+                ", precio=" + precio +
+                ", clientes=" + clientes +
+                '}';
+    }
 }
-viajeId INT AUTO_INCREMENT PRIMARY KEY,
-ciudad VARCHAR(100) NOT NULL,
-pais VARCHAR(100) NOT NULL,
-precio INT NOT NULL,
-clienteId INT,
-FOREIGN KEY (clienteId) REFERENCES Clientes(clienteId)
+//viajeId INT AUTO_INCREMENT PRIMARY KEY,
+//ciudad VARCHAR(100) NOT NULL,
+//pais VARCHAR(100) NOT NULL,
+//precio INT NOT NULL,
+//clienteId INT,
+//FOREIGN KEY (clienteId) REFERENCES Clientes(clienteId)

@@ -27,8 +27,7 @@ public class Cliente {
 
     public Cliente(){}
 
-    public Cliente(int id, String nombre, String nacionalidad, Viaje viaje) {
-        this.id = id;
+    public Cliente(String nombre, String nacionalidad, Viaje viaje) {
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.fechaRegistro = LocalDate.now();
