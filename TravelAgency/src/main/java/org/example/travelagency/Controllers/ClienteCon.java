@@ -41,9 +41,16 @@ public class ClienteCon {
         Viaje viajeSeleccionado = cbViaje.getValue();
 
         if (!nombre.isEmpty() && !nacionalidad.isEmpty() && viajeSeleccionado != null) {
-            Cliente cliente = new Cliente(nombre, nacionalidad, viajeSeleccionado);
-            ClienteManager.insertCliente(cliente);
-            volver();
+            if (Aceptar.getText().equals("Modificar")) {
+                // Lógica para actualizar el cliente
+                Cliente cliente =new Cliente(nombre,nacionalidad,viajeSeleccionado);
+                ClienteManager.updateCliente(cliente);
+                volver();
+            }else{
+                Cliente cliente = new Cliente(nombre, nacionalidad, viajeSeleccionado);
+                ClienteManager.insertCliente(cliente);
+                volver();
+            }
         } else {
             mostrarAlerta("Error", "Por favor, complete todos los campos.");
         }

@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import org.example.travelagency.Cliente;
+import org.example.travelagency.Controllers.ClienteCon;
 import org.example.travelagency.Manager.ClienteManager;
 import org.example.travelagency.Manager.ViajeManager;
 import org.example.travelagency.Viaje;
@@ -38,7 +39,7 @@ public class Clientes {
     private Button btnActualizar;
     @FXML
     private Button btnEliminar;
-
+    FXMLLoader fxmlLoader = null;
     private ObservableList<Cliente> clientesList;
     @FXML
     public void initialize() {
@@ -79,11 +80,8 @@ public class Clientes {
         Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
 
         if (clienteSeleccionado != null) {
-            clienteSeleccionado.setNombre(txtNombre.getText());
-            clienteSeleccionado.setNacionalidad(txtNacionalidad.getText());
-            clienteSeleccionado.setViaje(cbViaje.getValue());
-
-            ClienteManager.updateCliente(clienteSeleccionado);
+            ClienteCon clienteCon=fxmlLoader.getController();
+            clienteCon.rellenar(clienteSeleccionado);
             cargarClientes();
         } else {
             mostrarAlerta("Error", "Seleccione un cliente para actualizar.", Alert.AlertType.ERROR);
