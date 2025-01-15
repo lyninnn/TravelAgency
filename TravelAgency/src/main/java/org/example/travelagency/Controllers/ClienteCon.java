@@ -1,10 +1,14 @@
 package org.example.travelagency.Controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 import org.example.travelagency.Cliente;
 import org.example.travelagency.Manager.ClienteManager;
 import org.example.travelagency.Manager.ViajeManager;
@@ -13,18 +17,6 @@ import org.example.travelagency.Viaje;
 import java.time.LocalDate;
 
 public class ClienteCon {
-    @FXML
-    private TableView<Cliente> tableClientes;
-    @FXML
-    private TableColumn<Cliente, Integer> colId;
-    @FXML
-    private TableColumn<Cliente, String> colNombre;
-    @FXML
-    private TableColumn<Cliente, String> colNacionalidad;
-    @FXML
-    private TableColumn<Cliente, LocalDate> colFechaRegistro;
-    @FXML
-    private TableColumn<Cliente, String> colViaje;
 
     @FXML
     private TextField txtNombre;
@@ -34,28 +26,12 @@ public class ClienteCon {
     private ComboBox<Viaje> cbViaje;
 
     @FXML
-    private Button btnAgregar;
+    private Button Aceptar;
     @FXML
-    private Button btnActualizar;
-    @FXML
-    private Button btnEliminar;
+    private Button Cancelar;
 
-    private ObservableList<Cliente> clientesList;
-    @FXML
-    public void initialize() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colNacionalidad.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));
-        colFechaRegistro.setCellValueFactory(new PropertyValueFactory<>("fechaRegistro"));
 
-        cargarClientes();
 
-    }
-
-    private void cargarClientes() {
-        clientesList = FXCollections.observableArrayList(ClienteManager.getCliente());
-        tableClientes.setItems(clientesList);
-    }
 
     @FXML
     private void agregarCliente() {
@@ -66,54 +42,50 @@ public class ClienteCon {
         if (!nombre.isEmpty() && !nacionalidad.isEmpty() && viajeSeleccionado != null) {
             Cliente cliente = new Cliente(nombre, nacionalidad, viajeSeleccionado);
             ClienteManager.insertCliente(cliente);
-            cargarClientes();
-            limpiarCampos();
+            volver();
         } else {
-            mostrarAlerta("Error", "Por favor, complete todos los campos.", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Por favor, complete todos los campos.");
         }
     }
 
     @FXML
-    private void actualizarCliente() {
-        Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
+    void mostrarViajes() {
+        try {
+            // Obtener la lista de viajes desde el gestor
+            ObservableList<Viaje> viajes = FXCollections.observableArrayList(ViajeManager.getViaje());
 
-        if (clienteSeleccionado != null) {
-            clienteSeleccionado.setNombre(txtNombre.getText());
-            clienteSeleccionado.setNacionalidad(txtNacionalidad.getText());
-            clienteSeleccionado.setViaje(cbViaje.getValue());
-
-            ClienteManager.updateCliente(clienteSeleccionado);
-            cargarClientes();
-            limpiarCampos();
-        } else {
-            mostrarAlerta("Error", "Seleccione un cliente para actualizar.", Alert.AlertType.ERROR);
+            // Llenar el ComboBox con los datos
+            cbViaje.setItems(viajes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudieron cargar los viajes.");
         }
     }
 
     @FXML
-    private void eliminarCliente() {
-        Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
+    private void volver() {
+        try {
+            // Cargar la nueva vista de registro
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/main.fxml"));
+            Parent root = loader.load();
 
-        if (clienteSeleccionado != null) {
-            ClienteManager.deleteCliente(clienteSeleccionado);
-            cargarClientes();
-            limpiarCampos();
-        } else {
-            mostrarAlerta("Error", "Seleccione un cliente para eliminar.", Alert.AlertType.ERROR);
+            // Obtener la escena actual y reemplazarla con la nueva
+            Stage stage = (Stage) Cancelar.getScene().getWindow();
+            stage.setTitle("TravelAgency");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo abrir la página de registro.");
         }
     }
 
-    private void limpiarCampos() {
-        txtNombre.clear();
-        txtNacionalidad.clear();
-        cbViaje.getSelectionModel().clearSelection();
-    }
 
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }
