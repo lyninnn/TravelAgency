@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.example.travelagency.Cliente;
 import org.example.travelagency.Manager.ClienteManager;
 import org.example.travelagency.Manager.ViajeManager;
+import org.example.travelagency.Panel.Clientes;
 import org.example.travelagency.Viaje;
 
 import java.time.LocalDate;
@@ -64,6 +65,21 @@ public class ClienteCon {
 
     @FXML
     private void volver() {
+        if(Cancelar.getText().equals("Volver")){
+            try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("clientes.fxml"));
+            Parent root = loader.load();
+
+            // Obtener la escena actual y reemplazarla con la nueva
+            Stage stage = (Stage) Cancelar.getScene().getWindow();
+            stage.setTitle("Clientes");
+            stage.setScene(new Scene(root));
+            stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarAlerta("Error", "No se pudo abrir la página de registro.");
+            }
+        }else {
         try {
             // Cargar la nueva vista de registro
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/main.fxml"));
@@ -77,6 +93,33 @@ public class ClienteCon {
         } catch (Exception e) {
             e.printStackTrace();
             mostrarAlerta("Error", "No se pudo abrir la página de registro.");
+        }
+        }
+
+    }
+
+    public void rellenar(Cliente cliente){
+        txtNombre.setText(cliente.getNombre());
+        txtNacionalidad.setText(cliente.getNacionalidad());
+        cbViaje.setValue(cliente.getViaje());
+        Aceptar.setText("Modificar");
+        Cancelar.setText("Volver");
+    }
+    @FXML
+    private void agregarOmodificarCliente() {
+        String nombre = txtNombre.getText();
+        String nacionalidad = txtNacionalidad.getText();
+        Viaje viajeSeleccionado = cbViaje.getValue();
+
+        if (!nombre.isEmpty() && !nacionalidad.isEmpty() && viajeSeleccionado != null) {
+            if (Aceptar.getText().equals("Modificar")) {
+                // Lógica para actualizar el cliente
+                Cliente cliente =new Cliente(nombre,nacionalidad,viajeSeleccionado);
+
+                ClienteManager.updateCliente(cliente);
+            }
+        } else {
+            mostrarAlerta("Error", "Por favor, complete todos los campos.");
         }
     }
 

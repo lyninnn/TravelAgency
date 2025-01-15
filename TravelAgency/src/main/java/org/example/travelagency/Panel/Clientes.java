@@ -1,15 +1,20 @@
 package org.example.travelagency.Panel;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 import org.example.travelagency.Cliente;
 import org.example.travelagency.Manager.ClienteManager;
 import org.example.travelagency.Manager.ViajeManager;
 import org.example.travelagency.Viaje;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class Clientes {
@@ -26,12 +31,6 @@ public class Clientes {
     @FXML
     private TableColumn<Cliente, String> colViaje;
 
-    @FXML
-    private TextField txtNombre;
-    @FXML
-    private TextField txtNacionalidad;
-    @FXML
-    private ComboBox<Viaje> cbViaje;
 
     @FXML
     private Button btnAgregar;
@@ -59,17 +58,19 @@ public class Clientes {
 
     @FXML
     private void agregarCliente() {
-        String nombre = txtNombre.getText();
-        String nacionalidad = txtNacionalidad.getText();
-        Viaje viajeSeleccionado = cbViaje.getValue();
+        try {
+            // Cargar la vista de inicio
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("cliente.fxml"));
+            Parent root = loader.load();
 
-        if (!nombre.isEmpty() && !nacionalidad.isEmpty() && viajeSeleccionado != null) {
-            Cliente cliente = new Cliente(nombre, nacionalidad, viajeSeleccionado);
-            ClienteManager.insertCliente(cliente);
-            cargarClientes();
-            limpiarCampos();
-        } else {
-            mostrarAlerta("Error", "Por favor, complete todos los campos.", Alert.AlertType.ERROR);
+            // Obtener la escena actual y cambiarla
+            Stage stage = (Stage) btnAgregar.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo cargar la página de inicio.",Alert.AlertType.ERROR);
         }
     }
 
@@ -84,7 +85,6 @@ public class Clientes {
 
             ClienteManager.updateCliente(clienteSeleccionado);
             cargarClientes();
-            limpiarCampos();
         } else {
             mostrarAlerta("Error", "Seleccione un cliente para actualizar.", Alert.AlertType.ERROR);
         }
@@ -97,17 +97,11 @@ public class Clientes {
         if (clienteSeleccionado != null) {
             ClienteManager.deleteCliente(clienteSeleccionado);
             cargarClientes();
-            limpiarCampos();
         } else {
             mostrarAlerta("Error", "Seleccione un cliente para eliminar.", Alert.AlertType.ERROR);
         }
     }
 
-    private void limpiarCampos() {
-        txtNombre.clear();
-        txtNacionalidad.clear();
-        cbViaje.getSelectionModel().clearSelection();
-    }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
