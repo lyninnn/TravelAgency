@@ -12,7 +12,7 @@
     <Button fx:id="btnAgregar" layoutX="134.0" layoutY="52.0" onAction="#agregarCliente" text="agregar usuario" />
     <Button fx:id="btnEliminar" layoutX="134.0" layoutY="52.0" onAction="#eliminarCliente" text="Eliminar usuario" />
     <Button fx:id="btnActualizar" layoutX="14.0" layoutY="52.0" onAction="#actualizarCliente" text="Modificar usuario" />
-   <Label layoutX="148.0" prefHeight="55.0" prefWidth="89.0" text="Chat">
+   <Label layoutX="148.0" prefHeight="55.0" prefWidth="89.0" text="Clientes">
       <font>
          <Font size="38.0" />
       </font>

@@ -23,8 +23,6 @@ public class ClienteCon {
     @FXML
     private TextField txtNacionalidad;
 
-    @FXML
-    private DatePicker txtFechaRegistro;
 
     @FXML
     private ComboBox<Viaje> cbViaje;
@@ -42,19 +40,26 @@ public class ClienteCon {
 
     @FXML
     private void agregarCliente() {
+        // ID del cliente (solo para modificar)
+        int id = -1; // Valor predeterminado para identificar nuevos clientes
+
+        if (Aceptar.getText().equals("Modificar")) {
+            // Recuperar el ID del cliente al modificar
+            id = Integer.parseInt(Aceptar.getUserData().toString());
+        }
+
         String nombre = txtNombre.getText();
         String nacionalidad = txtNacionalidad.getText();
-        LocalDate fechaRegistro = txtFechaRegistro.getValue();
         Viaje viajeSeleccionado = cbViaje.getValue();
-
 
         if (!nombre.isEmpty() && !nacionalidad.isEmpty() && viajeSeleccionado != null) {
             if (Aceptar.getText().equals("Modificar")) {
                 // Lógica para actualizar el cliente
-                Cliente cliente =new Cliente(nombre,nacionalidad,viajeSeleccionado);
+                Cliente cliente = new Cliente(id, nombre, nacionalidad, viajeSeleccionado);
                 ClienteManager.updateCliente(cliente);
                 volver();
-            }else{
+            } else {
+                // Lógica para insertar un nuevo cliente
                 Cliente cliente = new Cliente(nombre, nacionalidad, viajeSeleccionado);
                 ClienteManager.insertCliente(cliente);
                 volver();
@@ -63,6 +68,7 @@ public class ClienteCon {
             mostrarAlerta("Error", "Por favor, complete todos los campos.");
         }
     }
+
 
     @FXML
     void mostrarViajes() {
@@ -82,7 +88,7 @@ public class ClienteCon {
     private void volver() {
         if(Cancelar.getText().equals("Volver")){
             try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("clientes.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/inicio.fxml"));
             Parent root = loader.load();
 
             // Obtener la escena actual y reemplazarla con la nueva
@@ -113,13 +119,15 @@ public class ClienteCon {
 
     }
 
-    public void rellenar(Cliente cliente){
+    public void rellenar(Cliente cliente) {
         txtNombre.setText(cliente.getNombre());
         txtNacionalidad.setText(cliente.getNacionalidad());
         cbViaje.setValue(cliente.getViaje());
         Aceptar.setText("Modificar");
+        Aceptar.setUserData(cliente.getId()); // Guardar el ID del cliente en el botón
         Cancelar.setText("Volver");
     }
+
 
 
 

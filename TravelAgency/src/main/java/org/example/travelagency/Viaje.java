@@ -24,7 +24,7 @@ public class Viaje{
 
 
 
-    @OneToMany(mappedBy = "viaje",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "viaje",fetch = FetchType.EAGER)
     public List<Cliente> clientes;
 
 
@@ -80,13 +80,12 @@ public class Viaje{
 
     @Override
     public String toString() {
-        return "Viaje{" +
+        return
                 "id=" + id +
                 ", ciudad='" + ciudad + '\'' +
                 ", pais='" + pais + '\'' +
-                ", precio=" + precio +
-                ", clientes=" + clientes +
-                '}';
+                ", precio=" + precio
+                ;
     }
 }
 //viajeId INT AUTO_INCREMENT PRIMARY KEY,

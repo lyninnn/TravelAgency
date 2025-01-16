@@ -25,9 +25,17 @@ public class Cliente {
     @JoinColumn(name ="viajeId")
     public Viaje viaje;
 
-    public Cliente(){}
+    public Cliente() {
+    }
 
     public Cliente(String nombre, String nacionalidad, Viaje viaje) {
+        this.nombre = nombre;
+        this.nacionalidad = nacionalidad;
+        this.viaje = viaje;
+    }
+
+    public Cliente(int id,String nombre, String nacionalidad, Viaje viaje) {
+        this.id=id;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.fechaRegistro = LocalDate.now();
@@ -76,12 +84,11 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
+        return
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", nacionalidad='" + nacionalidad + '\'' +
-                ", fechaRegistro=" + fechaRegistro +
-                ", viaje=" + viaje +
-                '}';
+                ", fechaRegistro=" + fechaRegistro
+               ;
     }
 }

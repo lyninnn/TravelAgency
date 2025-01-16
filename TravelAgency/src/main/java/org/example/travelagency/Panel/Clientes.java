@@ -65,13 +65,30 @@ public class Clientes {
     }
 
     @FXML
-    private void actualizarCliente() {
+    private void actualizarCliente(){
         Cliente clienteSeleccionado =  clientesListView.getSelectionModel().getSelectedItem();
 
         if (clienteSeleccionado != null) {
-            ClienteCon clienteCon=fxmlLoader.getController();
-            clienteCon.rellenar(clienteSeleccionado);
-            cargarClientes();
+            try {
+                // Inicializar el FXMLLoader y cargar el archivo FXML
+                fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/travelagency/cliente.fxml"));
+                Parent root = fxmlLoader.load();
+
+                // Obtener el controlador asociado al archivo FXML
+                ClienteCon clienteCon = fxmlLoader.getController();
+
+                // Pasar los datos del cliente seleccionado al controlador
+                clienteCon.rellenar(clienteSeleccionado);
+
+                // Cambiar a la nueva vista (opcional, según tu flujo de trabajo)
+                Stage stage = (Stage) clientesListView.getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                mostrarAlerta("Error", "No se pudo cargar la vista para actualizar el cliente.", Alert.AlertType.ERROR);
+            }
         } else {
             mostrarAlerta("Error", "Seleccione un cliente para actualizar.", Alert.AlertType.ERROR);
         }
