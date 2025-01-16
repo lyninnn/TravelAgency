@@ -5,14 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import org.example.travelagency.Cliente;
 import org.example.travelagency.Manager.ClienteManager;
 import org.example.travelagency.Manager.ViajeManager;
-import org.example.travelagency.Panel.Clientes;
 import org.example.travelagency.Viaje;
 
 import java.time.LocalDate;
@@ -21,24 +19,34 @@ public class ClienteCon {
 
     @FXML
     private TextField txtNombre;
+
     @FXML
     private TextField txtNacionalidad;
+
+    @FXML
+    private DatePicker txtFechaRegistro;
+
     @FXML
     private ComboBox<Viaje> cbViaje;
 
     @FXML
     private Button Aceptar;
+
     @FXML
     private Button Cancelar;
 
-
-
+    @FXML
+    public void initialize() {
+        mostrarViajes(); // Llenar ComboBox al inicializar
+    }
 
     @FXML
     private void agregarCliente() {
         String nombre = txtNombre.getText();
         String nacionalidad = txtNacionalidad.getText();
+        LocalDate fechaRegistro = txtFechaRegistro.getValue();
         Viaje viajeSeleccionado = cbViaje.getValue();
+
 
         if (!nombre.isEmpty() && !nacionalidad.isEmpty() && viajeSeleccionado != null) {
             if (Aceptar.getText().equals("Modificar")) {
@@ -111,23 +119,6 @@ public class ClienteCon {
         cbViaje.setValue(cliente.getViaje());
         Aceptar.setText("Modificar");
         Cancelar.setText("Volver");
-    }
-    @FXML
-    private void agregarOmodificarCliente() {
-        String nombre = txtNombre.getText();
-        String nacionalidad = txtNacionalidad.getText();
-        Viaje viajeSeleccionado = cbViaje.getValue();
-
-        if (!nombre.isEmpty() && !nacionalidad.isEmpty() && viajeSeleccionado != null) {
-            if (Aceptar.getText().equals("Modificar")) {
-                // Lógica para actualizar el cliente
-                Cliente cliente =new Cliente(nombre,nacionalidad,viajeSeleccionado);
-
-                ClienteManager.updateCliente(cliente);
-            }
-        } else {
-            mostrarAlerta("Error", "Por favor, complete todos los campos.");
-        }
     }
 
 

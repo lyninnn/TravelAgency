@@ -47,7 +47,7 @@ public class ViajeManager {
         manager.getTransaction().begin();
         //no es la tabla es la clase :D
         TypedQuery< Viaje> query =
-                manager.createQuery("FROM viajes where nombre = :nombre", Viaje.class);
+                manager.createQuery("FROM Viaje where nombre = :nombre", Viaje.class);
         query.setParameter("nombre", name);
         Viaje e  = query.getSingleResult();
         //Entrenador e = query.getResultList().stream().findFirst().orElse(null);
@@ -60,7 +60,7 @@ public class ViajeManager {
         EntityManager manager = managerFactory.createEntityManager();
         manager.getTransaction().begin();
         TypedQuery<Viaje> query =
-                manager.createQuery("FROM viajes", Viaje.class);
+                manager.createQuery("FROM Viaje", Viaje.class);
         ArrayList<Viaje> listado  = new ArrayList<>(query.getResultList());
         manager.getTransaction().commit();
         manager.close();

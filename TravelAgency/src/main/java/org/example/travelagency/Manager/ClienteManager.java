@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class ClienteManager {
     public static EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("Persistencia");
+
     public static void insertCliente(Cliente cliente){
         EntityManager manager = managerFactory.createEntityManager();
         manager.getTransaction().begin();
@@ -46,7 +47,7 @@ public class ClienteManager {
         manager.getTransaction().begin();
         //no es la tabla es la clase :D
         TypedQuery< Cliente> query =
-                manager.createQuery("FROM clientes where nombre = :nombre", Cliente.class);
+                manager.createQuery("FROM Cliente where nombre = :nombre", Cliente.class);
         query.setParameter("nombre", name);
         Cliente e  = query.getSingleResult();
         //Entrenador e = query.getResultList().stream().findFirst().orElse(null);
@@ -59,7 +60,7 @@ public class ClienteManager {
         EntityManager manager = managerFactory.createEntityManager();
         manager.getTransaction().begin();
         TypedQuery<Cliente> query =
-                manager.createQuery("FROM Clientes", Cliente.class);
+                manager.createQuery("FROM Cliente", Cliente.class);
         ArrayList<Cliente> listado  = new ArrayList<>(query.getResultList());
         manager.getTransaction().commit();
         manager.close();

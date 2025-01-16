@@ -19,18 +19,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class Clientes {
-    @FXML
-    private TableView<Cliente> tableClientes;
-    @FXML
-    private TableColumn<Cliente, Integer> colId;
-    @FXML
-    private TableColumn<Cliente, String> colNombre;
-    @FXML
-    private TableColumn<Cliente, String> colNacionalidad;
-    @FXML
-    private TableColumn<Cliente, LocalDate> colFechaRegistro;
-    @FXML
-    private TableColumn<Cliente, String> colViaje;
 
 
     @FXML
@@ -40,21 +28,22 @@ public class Clientes {
     @FXML
     private Button btnEliminar;
     FXMLLoader fxmlLoader = null;
+    @FXML
     private ObservableList<Cliente> clientesList;
+
+    @FXML
+    private ListView<Cliente> clientesListView;
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colNacionalidad.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));
-        colFechaRegistro.setCellValueFactory(new PropertyValueFactory<>("fechaRegistro"));
 
         cargarClientes();
+
 
     }
 
     private void cargarClientes() {
         clientesList = FXCollections.observableArrayList(ClienteManager.getCliente());
-        tableClientes.setItems(clientesList);
+        clientesListView.setItems(clientesList);
     }
 
     @FXML
@@ -77,7 +66,7 @@ public class Clientes {
 
     @FXML
     private void actualizarCliente() {
-        Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
+        Cliente clienteSeleccionado =  clientesListView.getSelectionModel().getSelectedItem();
 
         if (clienteSeleccionado != null) {
             ClienteCon clienteCon=fxmlLoader.getController();
@@ -90,7 +79,7 @@ public class Clientes {
 
     @FXML
     private void eliminarCliente() {
-        Cliente clienteSeleccionado = tableClientes.getSelectionModel().getSelectedItem();
+        Cliente clienteSeleccionado =  clientesListView.getSelectionModel().getSelectedItem();
 
         if (clienteSeleccionado != null) {
             ClienteManager.deleteCliente(clienteSeleccionado);

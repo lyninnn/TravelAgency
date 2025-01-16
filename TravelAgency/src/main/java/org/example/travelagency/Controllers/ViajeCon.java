@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.example.travelagency.Cliente;
+import org.example.travelagency.Manager.ClienteManager;
 import org.example.travelagency.Manager.ViajeManager;
 import org.example.travelagency.Viaje;
 
@@ -26,41 +28,78 @@ public class ViajeCon {
     private Button Cancelar;
 
     @FXML
+    public void initialize(){
+    }
+    @FXML
     private void agregarViaje() {
         String ciudad = txtCiudad.getText();
         String pais = txtPais.getText();
         String precioStr = txtPrecio.getText();
 
         if (!ciudad.isEmpty() && !pais.isEmpty() && !precioStr.isEmpty()) {
-            try {
-                int precio = Integer.parseInt(precioStr);
-                Viaje viaje = new Viaje(ciudad, pais, precio);
-                ViajeManager.insertViaje(viaje);
-                volver();
-            } catch (NumberFormatException e) {
-                mostrarAlerta("Error", "El precio debe ser un número válido.");
+                    if (Aceptar.getText().equals("Modificar")) {
+                        try {
+                        // Lógica para actualizar el cliente
+                        Viaje viaje =new Viaje(ciudad,pais,Integer.parseInt(precioStr));
+                        ViajeManager.updateViaje(viaje);
+                        volver();
+                        } catch (NumberFormatException e) {
+                            mostrarAlerta("Error", "El precio debe ser un número válido.");
+                        }
+                    }else{
+                try {
+                    int precio = Integer.parseInt(precioStr);
+                    Viaje viaje = new Viaje(ciudad, pais, precio);
+                    ViajeManager.insertViaje(viaje);
+                    volver();
+                } catch (NumberFormatException e) {
+                    mostrarAlerta("Error", "El precio debe ser un número válido.");
+                }
             }
-        } else {
-            mostrarAlerta("Error", "Por favor, complete todos los campos.");
         }
     }
 
     @FXML
     private void volver() {
-        try {
-            // Cargar la vista principal
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("viajes.fxml"));
-            Parent root = loader.load();
+        if (Cancelar.getText().equals("Volver")) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("viajes.fxml"));
+                Parent root = loader.load();
 
-            // Obtener la escena actual y reemplazarla con la nueva
-            Stage stage = (Stage) Cancelar.getScene().getWindow();
-            stage.setTitle("Viajes");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta("Error", "No se pudo abrir la página principal.");
+                // Obtener la escena actual y reemplazarla con la nueva
+                Stage stage = (Stage) Cancelar.getScene().getWindow();
+                stage.setTitle("Viajes");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarAlerta("Error", "No se pudo abrir la página de registro.");
+            }
+        } else {
+            try {
+                // Cargar la vista principal
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("viajes.fxml"));
+                Parent root = loader.load();
+
+                // Obtener la escena actual y reemplazarla con la nueva
+                Stage stage = (Stage) Cancelar.getScene().getWindow();
+                stage.setTitle("Viajes");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarAlerta("Error", "No se pudo abrir la página principal.");
+            }
         }
+    }
+    public void rellenar(Viaje viaje){
+        txtCiudad.setText(viaje.getCiudad());
+
+       txtPais.setText(viaje.getPais());
+
+        txtPrecio.setText(String.valueOf(viaje.getPrecio()));
+        Aceptar.setText("Modificar");
+        Cancelar.setText("Volver");
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {

@@ -9,7 +9,7 @@
         <!-- Configuración de la unidad de persistencia, como la conexión a la base de datos -->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/TravelAgency"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/travelagency"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

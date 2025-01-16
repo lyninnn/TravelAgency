@@ -10,20 +10,20 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="clienteID")
-    private int id;
+    public int id;
 
     @Column(name = "nombre")
-    private String nombre;
+    public String nombre;
 
     @Column(name = "nacionalidad")
-    private String nacionalidad;
+    public String nacionalidad;
 
     @Column(name = "fechaRegistro")
-    private LocalDate fechaRegistro;
+    public LocalDate fechaRegistro;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="viajeId")
-    private Viaje viaje;
+    public Viaje viaje;
 
     public Cliente(){}
 

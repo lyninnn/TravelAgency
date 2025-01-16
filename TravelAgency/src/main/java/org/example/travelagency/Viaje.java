@@ -2,6 +2,7 @@ package org.example.travelagency;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "viajes")
@@ -10,21 +11,22 @@ public class Viaje{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "viajeId")
-    private int id;
+    public int id;
 
     @Column(name = "ciudad")
-    private String ciudad;
+    public String ciudad;
 
     @Column(name = "pais")
-    private String pais;
+    public String pais;
 
     @Column(name = "precio")
-    private int precio;
+    public int precio;
 
 
 
     @OneToMany(mappedBy = "viaje",fetch = FetchType.LAZY)
-    private ArrayList<Cliente> clientes;
+    public List<Cliente> clientes;
+
 
     public Viaje() {
     }
@@ -68,7 +70,7 @@ public class Viaje{
         this.precio = precio;
     }
 
-    public ArrayList<Cliente> getClientes() {
+    public List<Cliente> getClientes() {
         return clientes;
     }
 

@@ -7,10 +7,11 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="464.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.travelagency.Panel.Clientes">
-    <ListView fx:id="clientesList" layoutY="85.0" prefHeight="352.0" prefWidth="385.0" />
-    <Button fx:id="onSendMessage" layoutX="261.0" layoutY="52.0" onAction="#onSendMessage" text="Enviar mensaje" />
-    <Button fx:id="btnEliminar" layoutX="134.0" layoutY="52.0" onAction="#onEliminar" text="Eliminar usuario" />
-    <Button fx:id="btnModificar" layoutX="14.0" layoutY="52.0" onAction="#onModificar" text="Modificar usuario" />
+    <ListView fx:id="clientesListView" layoutY="85.0" prefHeight="352.0" prefWidth="385.0" />
+
+    <Button fx:id="btnAgregar" layoutX="134.0" layoutY="52.0" onAction="#agregarCliente" text="agregar usuario" />
+    <Button fx:id="btnEliminar" layoutX="134.0" layoutY="52.0" onAction="#eliminarCliente" text="Eliminar usuario" />
+    <Button fx:id="btnActualizar" layoutX="14.0" layoutY="52.0" onAction="#actualizarCliente" text="Modificar usuario" />
    <Label layoutX="148.0" prefHeight="55.0" prefWidth="89.0" text="Chat">
       <font>
          <Font size="38.0" />

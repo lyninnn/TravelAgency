@@ -9,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import org.example.travelagency.Controllers.ClienteCon;
+import org.example.travelagency.Controllers.ViajeCon;
 import org.example.travelagency.Manager.ViajeManager;
 import org.example.travelagency.Viaje;
 
@@ -36,6 +38,7 @@ public class Viajes {
     private Button btnEliminar;
 
     private ObservableList<Viaje> viajesList;
+    FXMLLoader fxmlLoader = null;
 
     @FXML
     public void initialize() {
@@ -75,25 +78,13 @@ public class Viajes {
         Viaje viajeSeleccionado = tableViajes.getSelectionModel().getSelectedItem();
 
         if (viajeSeleccionado != null) {
-            viajeSeleccionado.setCiudad(txtCiudad.getText());
-            viajeSeleccionado.setPais(txtPais.getText());
-            String precioStr = txtPrecio.getText();
-
-            if (!precioStr.isEmpty()) {
-                try {
-                    int precio = Integer.parseInt(precioStr);
-                    viajeSeleccionado.setPrecio(precio);
-                    ViajeManager.updateViaje(viajeSeleccionado);
-                    cargarViajes();
-                } catch (NumberFormatException e) {
-                    mostrarAlerta("Error", "El precio debe ser un número válido.", Alert.AlertType.ERROR);
-                }
+                ViajeCon viajeCon =fxmlLoader.getController();
+                viajeCon.rellenar(viajeSeleccionado);
+                cargarViajes();
             } else {
-                mostrarAlerta("Error", "Por favor, ingrese un precio válido.", Alert.AlertType.ERROR);
+                mostrarAlerta("Error", "Seleccione un cliente para actualizar.", Alert.AlertType.ERROR);
             }
-        } else {
-            mostrarAlerta("Error", "Seleccione un viaje para actualizar.", Alert.AlertType.ERROR);
-        }
+
     }
 
     @FXML
