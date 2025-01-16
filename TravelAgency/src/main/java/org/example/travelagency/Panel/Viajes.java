@@ -18,16 +18,6 @@ import java.io.IOException;
 
 public class Viajes {
 
-    @FXML
-    private TableView<Viaje> tableViajes;
-    @FXML
-    private TableColumn<Viaje, Integer> colId;
-    @FXML
-    private TableColumn<Viaje, String> colCiudad;
-    @FXML
-    private TableColumn<Viaje, String> colPais;
-    @FXML
-    private TableColumn<Viaje, Integer> colPrecio;
 
 
     @FXML
@@ -36,23 +26,23 @@ public class Viajes {
     private Button btnActualizar;
     @FXML
     private Button btnEliminar;
-
+    @FXML
     private ObservableList<Viaje> viajesList;
+
+    @FXML
+    private ListView<Viaje> viajeListView;
     FXMLLoader fxmlLoader = null;
 
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
-        colPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
 
         cargarViajes();
     }
 
     private void cargarViajes() {
         viajesList = FXCollections.observableArrayList(ViajeManager.getViaje());
-        tableViajes.setItems(viajesList);
+
+        viajeListView.setItems(viajesList);
     }
 
     @FXML
@@ -75,7 +65,7 @@ public class Viajes {
 
     @FXML
     private void actualizarViaje() {
-        Viaje viajeSeleccionado = tableViajes.getSelectionModel().getSelectedItem();
+        Viaje viajeSeleccionado = viajeListView.getSelectionModel().getSelectedItem();
 
         if (viajeSeleccionado != null) {
                 ViajeCon viajeCon =fxmlLoader.getController();
@@ -89,7 +79,7 @@ public class Viajes {
 
     @FXML
     private void eliminarViaje() {
-        Viaje viajeSeleccionado = tableViajes.getSelectionModel().getSelectedItem();
+        Viaje viajeSeleccionado = viajeListView.getSelectionModel().getSelectedItem();
 
         if (viajeSeleccionado != null) {
             ViajeManager.deleteViaje(viajeSeleccionado);
