@@ -24,7 +24,7 @@ public class Viaje{
 
 
 
-    @OneToMany(mappedBy = "viaje",fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "viaje",fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     public List<Cliente> clientes;
 
 
@@ -91,7 +91,8 @@ public class Viaje{
                 "id=" + id +
                 ", ciudad='" + ciudad + '\'' +
                 ", pais='" + pais + '\'' +
-                ", precio=" + precio
+                ", precio=" + precio+
+                        ", clientes= "+clientes
                 ;
     }
 }
