@@ -24,6 +24,7 @@ public class Viaje{
 
 
 
+
     @OneToMany(mappedBy = "viaje",fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     public List<Cliente> clientes;
 
@@ -87,12 +88,16 @@ public class Viaje{
 
     @Override
     public String toString() {
+        List<String> clienteNombre =new ArrayList<>();
+        for (Cliente cliente:clientes){
+            clienteNombre.add(cliente.nombre);
+        }
         return
                 "id=" + id +
                 ", ciudad='" + ciudad + '\'' +
                 ", pais='" + pais + '\'' +
                 ", precio=" + precio+
-                        ", clientes= "+clientes
+                        ", clientes= "+clienteNombre
                 ;
     }
 }

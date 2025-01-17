@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS clientes (
     viajeId INT(11),  -- ID del viaje asignado al cliente
     FOREIGN KEY (viajeId) REFERENCES viajes(viajeId)  -- Relación con la tabla viajes
 );
-
 -- Insertar algunos datos de ejemplo en la tabla viajes
 INSERT INTO viajes (ciudad, pais, precio) VALUES
 ('Paris', 'Francia', 1500),

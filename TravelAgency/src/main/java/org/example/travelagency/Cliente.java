@@ -21,7 +21,7 @@ public class Cliente {
     @Column(name = "fechaRegistro")
     public LocalDate fechaRegistro;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name ="viajeId")
     public Viaje viaje;
 
