@@ -24,7 +24,7 @@ public class Viaje{
 
 
 
-    @OneToMany(mappedBy = "viaje",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "viaje",fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     public List<Cliente> clientes;
 
 

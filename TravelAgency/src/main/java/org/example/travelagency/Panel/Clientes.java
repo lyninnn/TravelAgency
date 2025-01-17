@@ -26,6 +26,8 @@ public class Clientes {
     @FXML
     private Button btnActualizar;
     @FXML
+    private Button btnViajes;
+    @FXML
     private Button btnEliminar;
     FXMLLoader fxmlLoader = null;
     @FXML
@@ -50,7 +52,24 @@ public class Clientes {
     private void agregarCliente() {
         try {
             // Cargar la vista de inicio
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("cliente.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/cliente.fxml"));
+            Parent root = loader.load();
+
+            // Obtener la escena actual y cambiarla
+            Stage stage = (Stage) btnAgregar.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo cargar la página de inicio.",Alert.AlertType.ERROR);
+        }
+    }
+    @FXML
+    private void irViajes(){
+        try {
+            // Cargar la vista de inicio
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/viajes.fxml"));
             Parent root = loader.load();
 
             // Obtener la escena actual y cambiarla

@@ -23,7 +23,7 @@ public class ClienteCon {
     @FXML
     private TextField txtNacionalidad;
 
-
+    public ObservableList<Viaje> viajes;
     @FXML
     private ComboBox<Viaje> cbViaje;
 
@@ -37,6 +37,7 @@ public class ClienteCon {
     public void initialize() {
         mostrarViajes(); // Llenar ComboBox al inicializar
     }
+
 
     @FXML
     private void agregarCliente() {
@@ -73,16 +74,33 @@ public class ClienteCon {
     @FXML
     void mostrarViajes() {
         try {
-            // Obtener la lista de viajes desde el gestor
-            ObservableList<Viaje> viajes = FXCollections.observableArrayList(ViajeManager.getViaje());
+            // Obtener la lista de viajes
+            viajes = FXCollections.observableArrayList(ViajeManager.getViaje());
 
-            // Llenar el ComboBox con los datos
+            // Verificar si la lista está vacía
+            if (viajes == null || viajes.isEmpty()) {
+                mostrarAlerta("Información", "No hay viajes disponibles.");
+                return;
+            }
+
+            // Asignar los viajes al ComboBox
             cbViaje.setItems(viajes);
+
+            // Limpiar selección previa si el ComboBox ya tiene elementos
+            if (!cbViaje.getItems().isEmpty()) {
+                cbViaje.getSelectionModel().clearSelection();
+            }
+
+            // Seleccionar el primer elemento automáticamente (opcional)
+            cbViaje.getSelectionModel().selectFirst();
+
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarAlerta("Error", "No se pudieron cargar los viajes.");
+            mostrarAlerta("Error", "Ocurrió un problema al cargar los viajes.");
         }
     }
+
+
 
     @FXML
     private void volver() {

@@ -15,7 +15,7 @@ public class ClienteManager {
     public static void insertCliente(Cliente cliente){
         EntityManager manager = managerFactory.createEntityManager();
         manager.getTransaction().begin();
-        manager.persist(cliente);
+        manager.persist(new Cliente(cliente.nombre, cliente.nacionalidad, cliente.viaje));
         manager.getTransaction().commit();
         manager.close();
     }

@@ -20,7 +20,7 @@
 
         <!-- Etiqueta y ComboBox para el viaje -->
         <Label layoutX="20.0" layoutY="100.0" text="Viaje:" />
-        <ComboBox fx:id="cbViaje" layoutX="100.0" layoutY="100.0" onAction="#mostrarViajes" prefWidth="200.0" />
+        <ComboBox fx:id="cbViaje" layoutX="100.0" layoutY="100.0"  prefWidth="200.0" />
 
         <!-- Botón Aceptar -->
         <Button fx:id="Aceptar" layoutX="100.0" layoutY="160.0" onAction="#agregarCliente" text="Aceptar" />

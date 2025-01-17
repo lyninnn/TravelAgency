@@ -21,7 +21,7 @@ public class Cliente {
     @Column(name = "fechaRegistro")
     public LocalDate fechaRegistro;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name ="viajeId")
     public Viaje viaje;
 
@@ -31,6 +31,7 @@ public class Cliente {
     public Cliente(String nombre, String nacionalidad, Viaje viaje) {
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
+        this.fechaRegistro = LocalDate.now();
         this.viaje = viaje;
     }
 
