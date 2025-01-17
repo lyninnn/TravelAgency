@@ -32,6 +32,12 @@ public class ViajeCon {
     }
     @FXML
     private void agregarViaje() {
+        int id = -1; // Valor predeterminado para identificar nuevos clientes
+
+        if (Aceptar.getText().equals("Modificar")) {
+            // Recuperar el ID del cliente al modificar
+            id = Integer.parseInt(Aceptar.getUserData().toString());
+        }
         String ciudad = txtCiudad.getText();
         String pais = txtPais.getText();
         String precioStr = txtPrecio.getText();
@@ -40,7 +46,7 @@ public class ViajeCon {
                     if (Aceptar.getText().equals("Modificar")) {
                         try {
                         // Lógica para actualizar el cliente
-                        Viaje viaje =new Viaje(ciudad,pais,Integer.parseInt(precioStr));
+                        Viaje viaje =new Viaje(id,ciudad,pais,Integer.parseInt(precioStr));
                         ViajeManager.updateViaje(viaje);
                         volver();
                         } catch (NumberFormatException e) {
@@ -63,7 +69,7 @@ public class ViajeCon {
     private void volver() {
         if (Cancelar.getText().equals("Volver")) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("viajes.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/viajes.fxml"));
                 Parent root = loader.load();
 
                 // Obtener la escena actual y reemplazarla con la nueva
@@ -78,7 +84,7 @@ public class ViajeCon {
         } else {
             try {
                 // Cargar la vista principal
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("viajes.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/viajes.fxml"));
                 Parent root = loader.load();
 
                 // Obtener la escena actual y reemplazarla con la nueva
@@ -99,6 +105,7 @@ public class ViajeCon {
 
         txtPrecio.setText(String.valueOf(viaje.getPrecio()));
         Aceptar.setText("Modificar");
+        Aceptar.setUserData(viaje.getId());
         Cancelar.setText("Volver");
     }
 

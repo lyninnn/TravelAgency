@@ -47,7 +47,7 @@ public class Viajes {
     @FXML
     private void irClientes() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/clientes.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/travelagency/inicio.fxml"));
             Parent root = loader.load();
 
             // Obtener la escena actual y cambiarla

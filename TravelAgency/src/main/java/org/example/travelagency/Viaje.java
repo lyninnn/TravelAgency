@@ -37,6 +37,13 @@ public class Viaje{
         this.precio = precio;
         this.clientes = new ArrayList<>();
     }
+    public Viaje(int id,String ciudad, String pais, int precio) {
+        this.id=id;
+        this.ciudad = ciudad;
+        this.pais = pais;
+        this.precio = precio;
+        this.clientes = new ArrayList<>();
+    }
 
     public int getId() {
         return id;

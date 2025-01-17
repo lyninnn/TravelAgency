@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="464.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.travelagency.Panel.Clientes">
-    <ListView fx:id="clientesListView" layoutY="85.0" prefHeight="352.0" prefWidth="385.0" />
+<AnchorPane prefHeight="464.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.travelagency.Panel.Clientes">
+    <ListView fx:id="clientesListView" layoutY="85.0" prefHeight="352.0" prefWidth="455.0" />
 
-    <Button fx:id="btnAgregar" layoutX="264.0" layoutY="52.0" onAction="#agregarCliente" text="agregar usuario" />
-    <Button fx:id="btnEliminar" layoutX="134.0" layoutY="52.0" onAction="#eliminarCliente" text="Eliminar usuario" />
+    <Button fx:id="btnAgregar" layoutX="261.0" layoutY="52.0" onAction="#agregarCliente" text="agregar usuario" />
+    <Button fx:id="btnEliminar" layoutX="143.0" layoutY="52.0" onAction="#eliminarCliente" text="Eliminar usuario" />
     <Button fx:id="btnActualizar" layoutX="14.0" layoutY="52.0" onAction="#actualizarCliente" text="Modificar usuario" />
-    <Button fx:id="btnViajes" layoutX="14.0" layoutY="400.0" onAction="#irViajes" text="Viajes" />
-   <Label layoutX="148.0" prefHeight="55.0" prefWidth="89.0" text="Clientes">
+    <Button fx:id="btnViajes" layoutX="388.0" layoutY="52.0" onAction="#irViajes" text="Viajes" />
+   <Label layoutX="166.0" prefHeight="55.0" prefWidth="156.0" text="Clientes">
       <font>
          <Font size="38.0" />
       </font>
